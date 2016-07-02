@@ -43,7 +43,12 @@ public class ShoppingCartController {
 	final ShoppingCart cart = shoppingCartRepository.findOne(id);
 	final List<Product> productList = new ArrayList<>();
 	for (final Long productId : cart.getItemIds()) {
-	    productList.add(productRepository.findOne(productId));
+	    final Product product = productRepository.findOne(productId);
+	    if (product == null) {
+		productList.add(new Product(productId, "PRODUCT NO LONGER AVAILABLE!", 0));
+	    } else {
+		productList.add(product);
+	    }
 	}
 	return productList;
     }

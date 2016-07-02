@@ -83,6 +83,7 @@
         
         handleResponse: function(data) {
         	console.log(data.detail.response);
+        	document.querySelector("product-list").refresh();
         },
         
         updateItem() {

@@ -3,14 +3,12 @@
 
 <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
-<!-- <link rel="import" href="main-page.html"> -->
-
 <link rel="import" href="components/product-create-form.html">
 <link rel="import" href="components/product-list.html">
 <link rel="import" href="components/shopping-cart.html">
-<link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 
-<style is="custom-style" include="iron-flex"></style>
+
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 </head>
 
@@ -23,13 +21,25 @@
   <dom-module id="main-page">
   
     <template>
-      <div class="horizontal layout" style="height:100%">
-        <div class="flex-4">
+	<style include="iron-flex iron-flex-alignment">
+   	.container {
+      @apply(--layout-horizontal);
+    }
+    .flex4 {
+      @apply(--layout-flex-4);
+    }
+    .flex2 {
+      @apply(--layout-flex-2);
+    }
+    
+    </style>
+      <div class="container">
+        <div class="flex4">
 			<product-create-form></product-create-form>
 			<hr>
 			<product-list></product-list>        
 		</div>
-        <div class="flex-2">
+        <div class="flex2">
 			<shopping-cart></shopping-cart>
         </div>
       </div>

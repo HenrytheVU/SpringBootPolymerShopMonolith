@@ -130,6 +130,7 @@
     url="/shoppingcarts/1/items/"
     handle-as="json"
   	content-type="application/json"
+  	on-response="handleAddToCartReponse"
     debounce-duration="300"
     ></iron-ajax>
     
@@ -218,6 +219,10 @@
         handleDeleteOneResponse: function() {
         	console.log("handling delete response");
         	this.refresh();
+        },
+        
+        handleAddToCartReponse: function() {
+        	document.querySelector("shopping-cart").refresh();
         },
         
         toggleDisabled: function(e) {
