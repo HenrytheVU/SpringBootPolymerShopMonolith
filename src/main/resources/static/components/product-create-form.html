@@ -1,0 +1,95 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+
+<dom-module id="product-create-form">
+
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style>
+    paper-card {
+    	@apply(--layout-vertical);
+    	padding: 10px;
+    	margin: 10px;
+    }
+    paper-button {
+    	margin-top: 20px;
+    }
+    </style>
+    
+    <paper-card heading="CREATE NEW PRODUCT">
+	    <form is="iron-form" id="form" validate>
+	    	<paper-input
+	    	required
+	    	auto-validate
+	    	value={{product.name}} 
+	    	label="Product Name"
+	    	error-message="Product name is missing!">
+	    	</paper-input>
+	    	
+	    	<paper-input 
+	    	required
+	    	allowed-pattern="[^\d+(.\d{1,2})]?"
+	    	auto-validate
+	    	value={{product.price}} 
+	    	label="Price"
+	    	error-message="Price is missing!">
+	    	<div prefix>€</div>
+	    	</paper-input>
+	    	<paper-button raised on-tap="submitForm"><iron-icon icon="add"></iron-icon>Create</paper-button>
+	    </form>
+    </paper-card>
+    
+    
+    <iron-ajax
+    id="ajax"
+    url="/products"
+    handle-as="json"
+  	content-type="application/json"
+    on-response="handleResponse"
+    debounce-duration="300"
+    ></iron-ajax>
+    
+  </template>
+
+  <!-- Creates the element's prototype and registers it -->
+  <script>
+    Polymer({
+      is: 'product-create-form',
+      
+      properties: {
+    	  product: {
+            type: Object,
+            value: {
+            }
+          }
+        },
+        
+        submitForm: function() {
+        	if(this.$.form.validate()) {
+	        	console.log("Saving: " + this.product);
+	      	  	this.$.ajax.method = 'POST';
+	      	  	this.$.ajax.body = this.product;
+	      	  	this.$.ajax.generateRequest();
+        	} else {
+        		console.log("Cannot submit due to missing fields!");
+        	}
+        },
+        
+        handleResponse: function(data) {
+        	console.log(data.detail.response);
+        },
+        
+        updateItem() {
+        }
+        
+      
+    });
+  </script>
+
+</dom-module>

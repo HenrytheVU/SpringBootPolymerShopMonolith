@@ -1,0 +1,48 @@
+<html>
+<head>
+
+<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+<!-- <link rel="import" href="main-page.html"> -->
+
+<link rel="import" href="components/product-create-form.html">
+<link rel="import" href="components/product-list.html">
+<link rel="import" href="components/shopping-cart.html">
+<link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+
+<style is="custom-style" include="iron-flex"></style>
+
+</head>
+
+
+
+<body>
+  <main-page></main-page>
+
+
+  <dom-module id="main-page">
+  
+    <template>
+      <div class="horizontal layout" style="height:100%">
+        <div class="flex-4">
+			<product-create-form></product-create-form>
+			<hr>
+			<product-list></product-list>        
+		</div>
+        <div class="flex-2">
+			<shopping-cart></shopping-cart>
+        </div>
+      </div>
+    </template>
+
+    <script>
+      Polymer({
+        is: "main-page"
+      });
+    </script>
+  </dom-module>
+
+
+	
+</body>
+</html>
